@@ -19,5 +19,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)PruSignPage.xaml.cs">
       <DependentUpon>PruSignPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ImageWithTouch.cs" />
   </ItemGroup>
 </Project>

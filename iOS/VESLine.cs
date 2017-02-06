@@ -1,20 +1,25 @@
-﻿using System;
-
-using Xamarin.Forms;
+﻿using UIKit;
 
 namespace PruSign.iOS
 {
-	public class VESLine : ContentPage
+	public class VESLine
 	{
-		public VESLine()
+		public UIBezierPath Path
 		{
-			Content = new StackLayout
-			{
-				Children = {
-					new Label { Text = "Hello ContentPage" }
-				}
-			};
+			get;
+			set;
+		}
+
+		public UIColor Color
+		{
+			get;
+			set;
+		}
+
+		public byte Index
+		{
+			get;
+			set;
 		}
 	}
 }
-

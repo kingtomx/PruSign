@@ -1,20 +1,36 @@
-﻿using System;
-
+﻿using System.Drawing;
+using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms;
+using PruSign;
+using PruSign.iOS;
+using System.ComponentModel;
+using UIKit;
 
+[assembly: ExportRenderer(typeof(ImageWithTouch), typeof(ImageWithTouchRenderer))]
 namespace PruSign.iOS
 {
-	public class ImageWithTouchRenderer : ContentPage
+	public class ImageWithTouchRenderer : ViewRenderer<ImageWithTouch, DrawView>
 	{
-		public ImageWithTouchRenderer()
+		protected override void OnElementChanged(ElementChangedEventArgs<ImageWithTouch> e)
 		{
-			Content = new StackLayout
+			base.OnElementChanged(e);
+
+			SetNativeControl(new DrawView(RectangleF.Empty));
+		}
+
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnElementPropertyChanged(sender, e);
+
+			if (e.PropertyName == ImageWithTouch.CurrentLineColorProperty.PropertyName)
 			{
-				Children = {
-					new Label { Text = "Hello ContentPage" }
-				}
-			};
+				UpdateControl();
+			}
+		}
+
+		private void UpdateControl()
+		{
+			Control.CurrentLineColor = Element.CurrentLineColor.ToUIColor();
 		}
 	}
 }
-
