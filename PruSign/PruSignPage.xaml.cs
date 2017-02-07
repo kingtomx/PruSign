@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UIKit;
+using CoreGraphics;
 
 namespace PruSign
 {
 	public partial class PruSignPage : ContentPage
 	{
 
-		private const int PalleteSpacing = 3;
 		private ImageWithTouch DrawingImage;
-		private Dictionary<string, Color> ColorPallete;
+
 
 		public PruSignPage()
 		{
@@ -35,6 +36,9 @@ namespace PruSign
 					},
 					new RowDefinition {
 						Height = new GridLength(1, GridUnitType.Star)
+					},
+					new RowDefinition {
+						Height = new GridLength(1, GridUnitType.Auto)
 					},
 					new RowDefinition {
 						Height = new GridLength(1, GridUnitType.Auto)
@@ -65,27 +69,22 @@ namespace PruSign
 					},
 					{
 						new ContentView {
-					   		Content = ButtonsFrame(),
+					   		Content = DocumentIdFrame(),
 					   		Padding = new Thickness(10, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 				  		}, 0, 2
+					},
+					{
+						new ContentView {
+					   		Content = ButtonsFrame(),
+					   		Padding = new Thickness(10, 0, 0, 0),
+					   		HorizontalOptions = LayoutOptions.FillAndExpand,
+					   		VerticalOptions = LayoutOptions.FillAndExpand
+				  		}, 0, 3
 					}
 				}
 			};
-		}
-
-
-
-
-
-
-
-		private static Color GetTextColor(Color backgroundColor)
-		{
-			var backgroundColorDelta = ((backgroundColor.R * 0.3) + (backgroundColor.G * 0.6) + (backgroundColor.B * 0.1));
-
-			return (backgroundColorDelta > 0.4f) ? Color.Black : Color.White;
 		}
 
 
@@ -98,7 +97,7 @@ namespace PruSign
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				BackgroundColor = Color.White,
-				CurrentLineColor = Color.Black
+				CurrentLineColor = Color.Black,
 			};
 
 			DrawingImage.SetBinding(ImageWithTouch.CurrentLineColorProperty, "CurrentLineColor");
@@ -116,6 +115,44 @@ namespace PruSign
 		}
 
 
+
+
+		private void ClearDrawingFrame()
+		{
+
+		}
+
+
+		private StackLayout DocumentIdFrame()
+		{
+
+			var stack = new StackLayout
+			{
+				Spacing = PalleteSpacing,
+				Orientation = StackOrientation.Horizontal,
+				VerticalOptions = LayoutOptions.FillAndExpand
+			};
+
+			Label documentLabel = new Label
+			{
+				Text = "Document Id: ",
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.Center
+			};
+
+			var documentId = new Entry
+			{
+				Placeholder = "",
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				PlaceholderColor = Color.Gray
+			};
+
+
+			stack.Children.Add(documentLabel);
+			stack.Children.Add(documentId);
+			return stack;
+		}
+
 		private StackLayout ButtonsFrame()
 		{
 
@@ -129,8 +166,10 @@ namespace PruSign
 			Label agreeText = new Label
 			{
 				Text = "Agree",
+				FontSize = 9,
 				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.Center
+				VerticalOptions = LayoutOptions.Center,
+				LineBreakMode = LineBreakMode.NoWrap
 			};
 
 			Switch agree = new Switch 
@@ -159,11 +198,24 @@ namespace PruSign
 
 			};
 
+			button2.Clicked += (sender, e) => {
+				ClearDrawingFrame();
+			};
+
+			Picker application = new Picker
+			{
+				Title = "Application",
+				VerticalOptions = LayoutOptions.Fill
+			};
+
+			application.Items.Add("eApplication");
+			application.Items.Add("WSM");
+
 			stack.Children.Add(agreeText);
 			stack.Children.Add(agree);
 			stack.Children.Add(button1);
+			stack.Children.Add(application);
 			stack.Children.Add(button2);
-
 			return stack;
 		}
 
