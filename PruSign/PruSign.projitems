@@ -20,5 +20,6 @@
       <DependentUpon>PruSignPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ImageWithTouch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SenderUtil.cs" />
   </ItemGroup>
 </Project>

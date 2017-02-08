@@ -10,7 +10,9 @@ namespace PruSign
 	public partial class PruSignPage : ContentPage
 	{
 
+		private const int PalleteSpacing = 3;
 		private ImageWithTouch DrawingImage;
+		private Frame palleteFrame;
 
 
 		public PruSignPage()
@@ -42,6 +44,9 @@ namespace PruSign
 					},
 					new RowDefinition {
 						Height = new GridLength(1, GridUnitType.Auto)
+					},
+					new RowDefinition {
+						Height = new GridLength(1, GridUnitType.Auto)
 					}
 				},
 				ColumnDefinitions = {
@@ -58,7 +63,6 @@ namespace PruSign
 							VerticalOptions = LayoutOptions.FillAndExpand
 						}, 0, 0
 					},
-					/* { BuildPalletFrame(), 0, 1 }, */
 				  	{
 						new ContentView {
 					   		Content = BuildDrawingFrame(),
@@ -69,7 +73,7 @@ namespace PruSign
 					},
 					{
 						new ContentView {
-					   		Content = DocumentIdFrame(),
+					   		Content = ClientDataFrame(),
 					   		Padding = new Thickness(10, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
@@ -77,11 +81,19 @@ namespace PruSign
 					},
 					{
 						new ContentView {
-					   		Content = ButtonsFrame(),
+					   		Content = DocumentIdFrame(),
 					   		Padding = new Thickness(10, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 				  		}, 0, 3
+					},
+					{
+					new ContentView {
+					   		Content = ButtonsFrame(),
+					   		Padding = new Thickness(10, 0, 0, 0),
+					   		HorizontalOptions = LayoutOptions.FillAndExpand,
+					   		VerticalOptions = LayoutOptions.FillAndExpand
+				  		}, 0, 4
 					}
 				}
 			};
@@ -102,7 +114,7 @@ namespace PruSign
 
 			DrawingImage.SetBinding(ImageWithTouch.CurrentLineColorProperty, "CurrentLineColor");
 
-			var palleteFrame = new Frame
+			 palleteFrame = new Frame
 			{
 				BackgroundColor = Color.White,
 				Padding = 5,
@@ -119,9 +131,38 @@ namespace PruSign
 
 		private void ClearDrawingFrame()
 		{
-
+			DrawingImage.Source = ImageSource.FromFile("blank.png");
 		}
 
+		private StackLayout ClientDataFrame()
+		{
+
+			var stack = new StackLayout
+			{
+				Spacing = PalleteSpacing,
+				Orientation = StackOrientation.Horizontal,
+				VerticalOptions = LayoutOptions.FillAndExpand
+			};
+
+			var nameEntry = new Entry
+			{
+				Placeholder = "Customer name",
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				PlaceholderColor = Color.Gray
+			};
+
+			var idEntry = new Entry
+			{
+				Placeholder = "Customer Id",
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				PlaceholderColor = Color.Gray
+			};
+
+
+			stack.Children.Add(nameEntry);
+			stack.Children.Add(idEntry);
+			return stack;
+		}
 
 		private StackLayout DocumentIdFrame()
 		{
@@ -133,22 +174,13 @@ namespace PruSign
 				VerticalOptions = LayoutOptions.FillAndExpand
 			};
 
-			Label documentLabel = new Label
-			{
-				Text = "Document Id: ",
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.Center
-			};
-
 			var documentId = new Entry
 			{
-				Placeholder = "",
+				Placeholder = "Document Id",
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				PlaceholderColor = Color.Gray
 			};
 
-
-			stack.Children.Add(documentLabel);
 			stack.Children.Add(documentId);
 			return stack;
 		}
@@ -160,62 +192,32 @@ namespace PruSign
 			{
 				Spacing = PalleteSpacing,
 				Orientation = StackOrientation.Horizontal,
+				HorizontalOptions = LayoutOptions.CenterAndExpand,
 				VerticalOptions = LayoutOptions.FillAndExpand
 			};
-
-			Label agreeText = new Label
-			{
-				Text = "Agree",
-				FontSize = 9,
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.Center,
-				LineBreakMode = LineBreakMode.NoWrap
-			};
-
-			Switch agree = new Switch 
-			{
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.Center
-			};
-
 			Button button1 = new Button
 			{
-				Text = " Send ",
+				Text = " Agree & Send ",
 				TextColor = Color.White,
 				BackgroundColor = Color.Green,
 				Font = Font.Default,
 				BorderColor = Color.Gray
 
 			};
-
-			Button button2 = new Button
+			button1.Clicked += (sender, e) =>
 			{
-				Text = " Clear ",
-				TextColor = Color.Black,
-				BackgroundColor = Color.FromHex("aaaaaa"),
-				Font = Font.Default,
-				BorderColor = Color.Gray
-
+				SenderUtil.SendSign(this.DrawingImage);
 			};
-
-			button2.Clicked += (sender, e) => {
-				ClearDrawingFrame();
-			};
-
 			Picker application = new Picker
 			{
 				Title = "Application",
-				VerticalOptions = LayoutOptions.Fill
+				VerticalOptions = LayoutOptions.FillAndExpand
 			};
 
 			application.Items.Add("eApplication");
 			application.Items.Add("WSM");
-
-			stack.Children.Add(agreeText);
-			stack.Children.Add(agree);
 			stack.Children.Add(button1);
 			stack.Children.Add(application);
-			stack.Children.Add(button2);
 			return stack;
 		}
 

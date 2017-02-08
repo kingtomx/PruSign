@@ -123,9 +123,11 @@
     <Compile Include="DrawView.cs" />
     <Compile Include="VESLine.cs" />
     <Compile Include="ImageWithTouchRenderer.cs" />
+    <Compile Include="ImageTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\prudential.png" />
+    <BundleResource Include="Resources\blank.png" />
   </ItemGroup>
   <Import Project="..\PruSign\PruSign.projitems" Label="Shared" Condition="Exists('..\PruSign\PruSign.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

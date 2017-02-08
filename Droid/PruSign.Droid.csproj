@@ -104,6 +104,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable\prudential.png" />
+    <AndroidResource Include="Resources\drawable\blank.png" />
   </ItemGroup>
   <Import Project="..\PruSign\PruSign.projitems" Label="Shared" Condition="Exists('..\PruSign\PruSign.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

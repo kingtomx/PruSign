@@ -32,5 +32,8 @@ namespace PruSign.iOS
 		{
 			Control.CurrentLineColor = Element.CurrentLineColor.ToUIColor();
 		}
+
+
+
 	}
 }

@@ -18,5 +18,7 @@ namespace PruSign
 				SetValue(CurrentLineColorProperty, value);
 			}
 		}
+
+
 	}
 }

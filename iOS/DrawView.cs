@@ -28,8 +28,18 @@ namespace PruSign.iOS
 		{
 			DrawPath = new CGPath();
 			CurrentLineColor = UIColor.Black;
-			PenWidth = 5.0f;
+			PenWidth = 3.0f;
 			Lines = new List<VESLine>();
+			UITapGestureRecognizer doubletap = new UITapGestureRecognizer(OnDoubleTap)
+			{
+				NumberOfTapsRequired=2
+			};
+			this.AddGestureRecognizer(doubletap);
+		}
+
+		private void OnDoubleTap(UIGestureRecognizer gesture)
+		{
+			Lines.Clear();
 		}
 
 		public void Clear()
@@ -93,6 +103,7 @@ namespace PruSign.iOS
 		{
 			InvokeOnMainThread(SetNeedsDisplay);
 		}
+
 
 		public override void TouchesCancelled(NSSet touches, UIEvent evt)
 		{
