@@ -101,12 +101,22 @@ namespace PruSign.iOS
 
 		public override void TouchesEnded(NSSet touches, UIEvent evt)
 		{
-			byte[] imageByteArray = CapturePNG(1.0);
+			/*
+			var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+			string pngFilename = System.IO.Path.Combine(documentsDirectory, "signature.png");
+			NSError err = null;
+			UIImage tempImage = this.AsImage();
+			NSData tempImagePng = tempImage.AsPNG();
+			tempImagePng.Save(pngFilename, false, out err);
+			*/
+
+			byte[] imageByteArray = CapturePNG(1.0, this);
 			NSData imgData = ToUIImage(imageByteArray).AsPNG();
 			var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-			string jpgFilename = System.IO.Path.Combine(documentsDirectory, "signature.png");
+			string pngFilename = System.IO.Path.Combine(documentsDirectory, "signature_new.png");
 			NSError err = null;
-			imgData.Save(jpgFilename, false, out err);
+			imgData.Save(pngFilename, false, out err);
+
 			InvokeOnMainThread(SetNeedsDisplay);
 		}
 
@@ -127,10 +137,11 @@ namespace PruSign.iOS
 		}
 
 
-		public byte[] CapturePNG(double scale)
+		public byte[] CapturePNG(double scale, UIView area)
 		{
-
-			UIImage image = UIViewExtensions.TakeScreenshot();
+			
+			//UIImage image = UIViewExtensions.TakeScreenshot();
+			UIImage image = UIViewExtensions.AsImage(area);
 			UIImage scaled = image;
 			if (scale != 1.0)
 			{
