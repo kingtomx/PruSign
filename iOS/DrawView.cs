@@ -101,7 +101,12 @@ namespace PruSign.iOS
 
 		public override void TouchesEnded(NSSet touches, UIEvent evt)
 		{
-			byte[] image = CapturePNG(1);
+			byte[] imageByteArray = CapturePNG(1.0);
+			NSData imgData = ToUIImage(imageByteArray).AsPNG();
+			var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+			string jpgFilename = System.IO.Path.Combine(documentsDirectory, "signature.png");
+			NSError err = null;
+			imgData.Save(jpgFilename, false, out err);
 			InvokeOnMainThread(SetNeedsDisplay);
 		}
 
@@ -136,6 +141,26 @@ namespace PruSign.iOS
 
 			System.Runtime.InteropServices.Marshal.Copy(png.Bytes, dataBytes, 0, Convert.ToInt32(png.Length));
 			return dataBytes;
+		}
+
+
+		public UIImage ToUIImage(byte[] data)
+		{
+			if (data == null)
+			{
+				return null;
+			}
+			UIImage image = null;
+			try
+			{
+				image = new UIImage(NSData.FromArray(data));
+				data = null;
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+			return image;
 		}
 
 	}
