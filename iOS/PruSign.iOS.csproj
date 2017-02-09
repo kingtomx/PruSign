@@ -124,6 +124,7 @@
     <Compile Include="VESLine.cs" />
     <Compile Include="ImageWithTouchRenderer.cs" />
     <Compile Include="ImageTools.cs" />
+    <Compile Include="UIViewExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\prudential.png" />

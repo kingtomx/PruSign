@@ -8,13 +8,13 @@ using CoreGraphics;
 
 namespace PruSign.iOS
 {
-	public class ImageTools
+	public static class ImageTools
 	{
 
 
-		public void send(ImageSource source)
+		public static void send(ImageSource img)
 		{
-			Task<UIImage> bmp = GetBitmapAsync(source);
+			Task<UIImage> bmp = GetBitmapAsync(img);
 
 			UIImage bmpResult = bmp.Result;
 			nfloat w = bmpResult.Size.Width;
@@ -23,7 +23,7 @@ namespace PruSign.iOS
 
 
 		// IOS
-		public async Task<UIImage> GetBitmapAsync(ImageSource source)
+		public static async Task<UIImage> GetBitmapAsync(ImageSource source)
 		{
 			var handler = GetHandler(source);
 			var returnValue = (UIImage)null;

@@ -28,8 +28,8 @@ namespace PruSign
 
 		private static void SendIOS(Image img)
 		{
-			PruSign.iOS.ImageTools tool = new iOS.ImageTools();
-			tool.send(img.Source);
+			// hacer esto static
+			PruSign.iOS.ImageTools.send(img.Source);
 		}
 
 

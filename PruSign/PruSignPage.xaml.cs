@@ -127,13 +127,6 @@ namespace PruSign
 		}
 
 
-
-
-		private void ClearDrawingFrame()
-		{
-			DrawingImage.Source = ImageSource.FromFile("blank.png");
-		}
-
 		private StackLayout ClientDataFrame()
 		{
 
@@ -207,6 +200,7 @@ namespace PruSign
 			button1.Clicked += (sender, e) =>
 			{
 				SenderUtil.SendSign(this.DrawingImage);
+
 			};
 			Picker application = new Picker
 			{

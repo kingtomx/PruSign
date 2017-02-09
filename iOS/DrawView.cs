@@ -101,6 +101,7 @@ namespace PruSign.iOS
 
 		public override void TouchesEnded(NSSet touches, UIEvent evt)
 		{
+			byte[] image = CapturePNG(1);
 			InvokeOnMainThread(SetNeedsDisplay);
 		}
 
@@ -110,16 +111,6 @@ namespace PruSign.iOS
 			InvokeOnMainThread(SetNeedsDisplay);
 		}
 
-		/*
-		public override void Draw(RectangleF rect)
-		{
-			foreach (var line in Lines)
-			{
-				line.Color.SetStroke();
-				line.Path.Stroke();
-			}
-		}*/
-
 
 		public override void Draw(CGRect rect)
 		{
@@ -128,6 +119,23 @@ namespace PruSign.iOS
 				line.Color.SetStroke();
 				line.Path.Stroke();
 			}
+		}
+
+
+		public byte[] CapturePNG(double scale)
+		{
+
+			UIImage image = UIViewExtensions.TakeScreenshot();
+			UIImage scaled = image;
+			if (scale != 1.0)
+			{
+				scaled = image.Scale(new SizeF((float)(image.Size.Width * scale), (float)(image.Size.Height * scale)));
+			}
+			NSData png = scaled.AsPNG();
+			byte[] dataBytes = new byte[png.Length];
+
+			System.Runtime.InteropServices.Marshal.Copy(png.Bytes, dataBytes, 0, Convert.ToInt32(png.Length));
+			return dataBytes;
 		}
 
 	}
