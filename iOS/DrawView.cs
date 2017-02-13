@@ -4,6 +4,7 @@ using System.Drawing;
 using CoreGraphics;
 using Foundation;
 using UIKit;
+using System.Security.Cryptography;
 
 namespace PruSign.iOS
 {
@@ -110,12 +111,19 @@ namespace PruSign.iOS
 			tempImagePng.Save(pngFilename, false, out err);
 			*/
 
+			//Aqui podemos crear una carpeta para firmas temporales
+			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			var directoryname = System.IO.Path.Combine(documents, "temporalSignatures");
+			System.IO.Directory.CreateDirectory(directoryname);
+
 			byte[] imageByteArray = CapturePNG(1.0, this);
 			NSData imgData = ToUIImage(imageByteArray).AsPNG();
-			var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-			string pngFilename = System.IO.Path.Combine(documentsDirectory, "signature_new.png");
+			long ticks = System.DateTime.Now.Ticks;
+			string pngFilename = System.IO.Path.Combine(directoryname, "signature_"+ticks+".png");
 			NSError err = null;
 			imgData.Save(pngFilename, false, out err);
+
+			//String errDescription = err.DebugDescription;
 
 			InvokeOnMainThread(SetNeedsDisplay);
 		}
@@ -172,6 +180,26 @@ namespace PruSign.iOS
 				return null;
 			}
 			return image;
+		}
+
+
+
+		public string SHA512StringHash(byte[] input)
+		{
+			SHA512 shaM = new SHA512Managed();
+			// Convert the input string to a byte array and compute the hash.
+			byte[] data = shaM.ComputeHash(input);
+			// Create a new Stringbuilder to collect the bytes
+			// and create a string.
+			System.Text.StringBuilder sBuilder = new System.Text.StringBuilder();
+			// Loop through each byte of the hashed data 
+			// and format each one as a hexadecimal string.
+			for (int i = 0; i < data.Length; i++)
+			{
+				sBuilder.Append(data[i].ToString("x2"));
+			}
+			// Return the hexadecimal string.
+			return sBuilder.ToString();
 		}
 
 	}
