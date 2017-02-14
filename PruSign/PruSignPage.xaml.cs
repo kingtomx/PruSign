@@ -1,9 +1,7 @@
-﻿using Xamarin.Forms;
-using System;
+﻿using System;
+using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Linq;
-using UIKit;
-using CoreGraphics;
 
 namespace PruSign
 {
@@ -13,6 +11,12 @@ namespace PruSign
 		private const int PalleteSpacing = 3;
 		private ImageWithTouch DrawingImage;
 		private Frame palleteFrame;
+
+		private Entry nameEntry = null;
+		private Entry idEntry = null;
+		private Entry documentId = null;
+		private Picker application = null;
+		private Entry datetimeEntry = null;
 
 
 		public PruSignPage()
@@ -33,6 +37,9 @@ namespace PruSign
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				RowDefinitions = {
+					new RowDefinition {
+						Height = new GridLength(1, GridUnitType.Auto)
+					},
 					new RowDefinition {
 						Height = new GridLength(1, GridUnitType.Auto)
 					},
@@ -63,17 +70,17 @@ namespace PruSign
 							VerticalOptions = LayoutOptions.FillAndExpand
 						}, 0, 0
 					},
-				  	{
+					{
 						new ContentView {
-					   		Content = BuildDrawingFrame(),
+					   		Content = datetimeFrame(),
 					   		Padding = new Thickness(10, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
-				  		}, 0, 1
+						}, 0, 1
 					},
-					{
+				  	{
 						new ContentView {
-					   		Content = ClientDataFrame(),
+					   		Content = BuildDrawingFrame(),
 					   		Padding = new Thickness(10, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
@@ -81,11 +88,19 @@ namespace PruSign
 					},
 					{
 						new ContentView {
-					   		Content = DocumentIdFrame(),
+					   		Content = ClientDataFrame(),
 					   		Padding = new Thickness(10, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 				  		}, 0, 3
+					},
+					{
+						new ContentView {
+					   		Content = DocumentIdFrame(),
+					   		Padding = new Thickness(10, 0, 0, 0),
+					   		HorizontalOptions = LayoutOptions.FillAndExpand,
+					   		VerticalOptions = LayoutOptions.FillAndExpand
+				  		}, 0, 4
 					},
 					{
 					new ContentView {
@@ -93,7 +108,7 @@ namespace PruSign
 					   		Padding = new Thickness(10, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
-				  		}, 0, 4
+				  		}, 0, 5
 					}
 				}
 			};
@@ -137,14 +152,14 @@ namespace PruSign
 				VerticalOptions = LayoutOptions.FillAndExpand
 			};
 
-			var nameEntry = new Entry
+			this.nameEntry = new Entry
 			{
 				Placeholder = "Customer name",
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				PlaceholderColor = Color.Gray
 			};
 
-			var idEntry = new Entry
+			idEntry = new Entry
 			{
 				Placeholder = "Customer Id",
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -154,6 +169,28 @@ namespace PruSign
 
 			stack.Children.Add(nameEntry);
 			stack.Children.Add(idEntry);
+			return stack;
+		}
+
+		private StackLayout datetimeFrame()
+		{
+
+			var stack = new StackLayout
+			{
+				Spacing = PalleteSpacing,
+				Orientation = StackOrientation.Horizontal,
+				VerticalOptions = LayoutOptions.FillAndExpand
+			};
+
+			datetimeEntry = new Entry
+			{
+				IsEnabled = false,
+				Text = System.DateTime.Now.ToString(),
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				PlaceholderColor = Color.Gray
+			};
+
+			stack.Children.Add(datetimeEntry);
 			return stack;
 		}
 
@@ -167,7 +204,7 @@ namespace PruSign
 				VerticalOptions = LayoutOptions.FillAndExpand
 			};
 
-			var documentId = new Entry
+			documentId = new Entry
 			{
 				Placeholder = "Document Id",
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -199,10 +236,28 @@ namespace PruSign
 			};
 			button1.Clicked += (sender, e) =>
 			{
-				SenderUtil.SendSign(this.DrawingImage);
+				if (nameEntry.Text == null)
+				{
+					DisplayAlert("Error", "Name cannot be empty", "Ok");
+				}
+				else if (idEntry.Text == null)
+				{
+					DisplayAlert("Error", "Customer Id cannot be empty", "Ok");
+				}
+				else if (documentId.Text == null)
+				{
+					DisplayAlert("Error", "Document Id cannot be empty", "Ok");
+				}
+				else if (application.SelectedIndex == -1)
+				{
+					DisplayAlert("Error", "Select an Application to send the signature", "Ok");
+				}
+				else {
+					SenderUtil.SendSign(nameEntry.Text, idEntry.Text, documentId.Text, application.Items[application.SelectedIndex], datetimeEntry.Text);
 
+				}
 			};
-			Picker application = new Picker
+			application = new Picker
 			{
 				Title = "Application",
 				VerticalOptions = LayoutOptions.FillAndExpand

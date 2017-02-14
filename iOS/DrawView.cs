@@ -4,7 +4,7 @@ using System.Drawing;
 using CoreGraphics;
 using Foundation;
 using UIKit;
-using System.Security.Cryptography;
+
 
 namespace PruSign.iOS
 {
@@ -119,7 +119,7 @@ namespace PruSign.iOS
 			byte[] imageByteArray = CapturePNG(1.0, this);
 			NSData imgData = ToUIImage(imageByteArray).AsPNG();
 			long ticks = System.DateTime.Now.Ticks;
-			string pngFilename = System.IO.Path.Combine(directoryname, "signature_"+ticks+".png");
+			string pngFilename = System.IO.Path.Combine(directoryname, "signature.png");
 			NSError err = null;
 			imgData.Save(pngFilename, false, out err);
 
@@ -184,23 +184,7 @@ namespace PruSign.iOS
 
 
 
-		public string SHA512StringHash(byte[] input)
-		{
-			SHA512 shaM = new SHA512Managed();
-			// Convert the input string to a byte array and compute the hash.
-			byte[] data = shaM.ComputeHash(input);
-			// Create a new Stringbuilder to collect the bytes
-			// and create a string.
-			System.Text.StringBuilder sBuilder = new System.Text.StringBuilder();
-			// Loop through each byte of the hashed data 
-			// and format each one as a hexadecimal string.
-			for (int i = 0; i < data.Length; i++)
-			{
-				sBuilder.Append(data[i].ToString("x2"));
-			}
-			// Return the hexadecimal string.
-			return sBuilder.ToString();
-		}
+
 
 	}
 }
