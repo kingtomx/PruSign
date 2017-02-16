@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
 
 namespace PruSign
 {
@@ -33,6 +34,31 @@ namespace PruSign
 
 
 			String hash = SHA512StringHash(rv);
+
+
+			var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+			var outboxFolder = System.IO.Path.Combine(documents, "outbox");
+			System.IO.Directory.CreateDirectory(outboxFolder);
+
+			Signature sign = new Signature
+			{
+				customerName = name,
+				customerId = customerId,
+				documentId = documentId,
+				applicationId = appName,
+				datetime = datetime,
+				image = signatureFile
+			};
+			var json = JsonConvert.SerializeObject(sign);
+			var filename = System.IO.Path.Combine(outboxFolder, System.DateTime.Now.Ticks+".json");
+			using (var streamWriter = new System.IO.StreamWriter(filename))
+			{
+				streamWriter.Write(json);
+				streamWriter.Close();
+			}
+
+
+
 		}
 
 
@@ -62,6 +88,7 @@ namespace PruSign
 			System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
 			return bytes;
 		}
+
 
 
 	}
