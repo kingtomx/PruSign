@@ -22,8 +22,14 @@ namespace PruSign
 		public PruSignPage()
 		{
 			InitializeComponent();
-			Content = BuildGrid();
-			Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 10);
+			try
+			{
+				Content = BuildGrid();
+				Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 10);
+			}
+			catch (Exception ex) {
+				DisplayAlert("Error", ex.Message, "Close"); 
+			}
 
 
 		}

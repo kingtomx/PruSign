@@ -23,7 +23,6 @@ namespace PruSign
 			byte[] appNameBytes = GetBytes(appName);
 			byte[] datetimeBytes = GetBytes(datetime);
 
-
 			byte[] rv = new byte[signatureFile.Length + nameBytes.Length + customerIdBytes.Length + documentIdBytes.Length + appNameBytes.Length + datetimeBytes.Length];
 			System.Buffer.BlockCopy(signatureFile, 0, rv, 0, signatureFile.Length);
 			System.Buffer.BlockCopy(nameBytes, 0, rv, signatureFile.Length, nameBytes.Length);
@@ -32,11 +31,8 @@ namespace PruSign
 			System.Buffer.BlockCopy(appNameBytes, 0, rv, signatureFile.Length + nameBytes.Length + customerIdBytes.Length + documentIdBytes.Length, appNameBytes.Length);
 			System.Buffer.BlockCopy(datetimeBytes, 0, rv, signatureFile.Length + nameBytes.Length + customerIdBytes.Length + documentIdBytes.Length + appNameBytes.Length, datetimeBytes.Length);
 
-
 			String hash = SHA512StringHash(rv);
 
-
-			var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 			var outboxFolder = System.IO.Path.Combine(documents, "outbox");
 			System.IO.Directory.CreateDirectory(outboxFolder);
 
@@ -47,7 +43,8 @@ namespace PruSign
 				documentId = documentId,
 				applicationId = appName,
 				datetime = datetime,
-				image = signatureFile
+				image = signatureFile,
+				hash = hash
 			};
 			var json = JsonConvert.SerializeObject(sign);
 			var filename = System.IO.Path.Combine(outboxFolder, System.DateTime.Now.Ticks+".json");

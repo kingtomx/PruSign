@@ -9,5 +9,6 @@ namespace PruSign
 		public String customerId;
 		public String documentId;
 		public String applicationId;
+		public String hash;
 	}
 }
