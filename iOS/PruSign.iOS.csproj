@@ -128,6 +128,7 @@
     <Compile Include="ImageWithTouchRenderer.cs" />
     <Compile Include="ImageTools.cs" />
     <Compile Include="UIViewExtensions.cs" />
+    <Compile Include="MySessionDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\prudential.png" />
