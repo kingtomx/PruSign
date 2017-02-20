@@ -25,7 +25,7 @@ namespace PruSign.iOS
 		}
 
 
-		public void UploadData(string url)
+		public void Post(string url)
 		{
 			NSUrlSession session = null;
 
