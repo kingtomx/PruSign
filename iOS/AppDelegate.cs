@@ -42,11 +42,10 @@ namespace PruSign.iOS
 			var objects = new object[] { "Value1", "Value2" };
 			var dictionnary = NSDictionary.FromObjectsAndKeys(objects, keys);
 			request.Headers = dictionnary;
-
+			// BODY
 			NSObject postObj = FromObject("yourfieldname=yourpassedvalue");
 			NSString postString = (NSString)postObj;
 			NSData postData = NSData.FromString(postString);
-
 			request.Body = postData;
 
 			uploadTask = session.CreateUploadTask(request);
