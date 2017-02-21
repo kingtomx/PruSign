@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using UIKit;
+using System.Threading.Tasks;
 
 namespace PruSign.iOS
 {
@@ -21,7 +22,21 @@ namespace PruSign.iOS
 
 		public override void DidEnterBackground(UIApplication app)
 		{
-			UploadData("https://reqres.in/api/users");
+			nint taskID = UIApplication.SharedApplication.BeginBackgroundTask(() => { 
+			});
+			new Task(() =>
+			{
+				try
+				{
+					Post("https://reqres.in/api/users");
+					UIApplication.SharedApplication.EndBackgroundTask(taskID);
+				}
+				catch (Exception ex)
+				{
+					String error = ex.Message;
+				}
+			}).Start();
+
 		}
 
 
@@ -43,7 +58,7 @@ namespace PruSign.iOS
 			var dictionnary = NSDictionary.FromObjectsAndKeys(objects, keys);
 			request.Headers = dictionnary;
 			// BODY
-			NSObject postObj = FromObject("yourfieldname=yourpassedvalue");
+			NSObject postObj = FromObject("{\"name\": \"tomas\",\"job\": \"supervisor\"}");
 			NSString postString = (NSString)postObj;
 			NSData postData = NSData.FromString(postString);
 			request.Body = postData;

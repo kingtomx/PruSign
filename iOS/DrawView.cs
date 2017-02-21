@@ -20,6 +20,7 @@ namespace PruSign.iOS
 		private List<VESLine> Lines;
 		public UIColor CurrentLineColor { get; set; }
 		public float PenWidth { get; set; }
+		public List<PointWhen> points;
 
 
 
@@ -31,6 +32,7 @@ namespace PruSign.iOS
 			CurrentLineColor = UIColor.Black;
 			PenWidth = 3.0f;
 			Lines = new List<VESLine>();
+			points = new List<PointWhen>();
 			UITapGestureRecognizer doubletap = new UITapGestureRecognizer(OnDoubleTap)
 			{
 				NumberOfTapsRequired=2
@@ -89,6 +91,12 @@ namespace PruSign.iOS
 			{
 
 				var newPoint = new PointF(((float)currentPoint.X + (float)PreviousPoint.X) / 2, ((float)currentPoint.Y + (float)PreviousPoint.Y) / 2);
+				PointWhen customPoint = new PointWhen
+				{
+					point = newPoint,
+					when = System.DateTime.Now.Ticks
+				};
+				points.Add(customPoint);
 
 				CurrentPath.AddQuadCurveToPoint(newPoint, PreviousPoint);
 				PreviousPoint = (System.Drawing.PointF)currentPoint;
@@ -102,14 +110,6 @@ namespace PruSign.iOS
 
 		public override void TouchesEnded(NSSet touches, UIEvent evt)
 		{
-			/*
-			var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-			string pngFilename = System.IO.Path.Combine(documentsDirectory, "signature.png");
-			NSError err = null;
-			UIImage tempImage = this.AsImage();
-			NSData tempImagePng = tempImage.AsPNG();
-			tempImagePng.Save(pngFilename, false, out err);
-			*/
 
 			//Aqui podemos crear una carpeta para firmas temporales
 			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -122,8 +122,6 @@ namespace PruSign.iOS
 			string pngFilename = System.IO.Path.Combine(directoryname, "signature.png");
 			NSError err = null;
 			imgData.Save(pngFilename, false, out err);
-
-			//String errDescription = err.DebugDescription;
 
 			InvokeOnMainThread(SetNeedsDisplay);
 		}
