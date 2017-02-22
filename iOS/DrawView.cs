@@ -4,6 +4,7 @@ using System.Drawing;
 using CoreGraphics;
 using Foundation;
 using UIKit;
+using Newtonsoft.Json;
 
 
 namespace PruSign.iOS
@@ -122,6 +123,11 @@ namespace PruSign.iOS
 			string pngFilename = System.IO.Path.Combine(directoryname, "signature.png");
 			NSError err = null;
 			imgData.Save(pngFilename, false, out err);
+
+			// Salvamos tambien el fichero de puntos
+			string pointsFilename = System.IO.Path.Combine(directoryname, "points.json");
+			String pointsString = JsonConvert.SerializeObject(points);
+			System.IO.File.WriteAllText(pointsFilename, pointsString);
 
 			InvokeOnMainThread(SetNeedsDisplay);
 		}

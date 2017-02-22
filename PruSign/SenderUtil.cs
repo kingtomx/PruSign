@@ -16,6 +16,8 @@ namespace PruSign
 			var directoryname = System.IO.Path.Combine(documents, "temporalSignatures");
 
 			byte[] signatureFile = System.IO.File.ReadAllBytes(System.IO.Path.Combine(directoryname, "signature.png"));
+			String pointsString = System.IO.File.ReadAllText(System.IO.Path.Combine(directoryname, "points.json"));
+			var points = JsonConvert.DeserializeObject(pointsString);
 
 			byte[] nameBytes = GetBytes(name);
 			byte[] customerIdBytes = GetBytes(customerId);
@@ -38,6 +40,7 @@ namespace PruSign
 
 			Signature sign = new Signature
 			{
+				points = points,
 				customerName = name,
 				customerId = customerId,
 				documentId = documentId,

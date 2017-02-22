@@ -4,7 +4,7 @@ namespace PruSign
 	public class Signature
 	{
 		public byte[] image;
-		public PruSign.iOS.PointWhen[] points;
+		public object points;
 		public String datetime;
 		public String customerName;
 		public String customerId;
