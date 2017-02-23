@@ -242,25 +242,32 @@ namespace PruSign
 			};
 			button1.Clicked += (sender, e) =>
 			{
-				if (nameEntry.Text == null)
+				try
 				{
-					DisplayAlert("Error", "Name cannot be empty", "Ok");
-				}
-				else if (idEntry.Text == null)
-				{
-					DisplayAlert("Error", "Customer Id cannot be empty", "Ok");
-				}
-				else if (documentId.Text == null)
-				{
-					DisplayAlert("Error", "Document Id cannot be empty", "Ok");
-				}
-				else if (application.SelectedIndex == -1)
-				{
-					DisplayAlert("Error", "Select an Application to send the signature", "Ok");
-				}
-				else {
-					SenderUtil.SendSign(nameEntry.Text, idEntry.Text, documentId.Text, application.Items[application.SelectedIndex], datetimeEntry.Text);
+					if (nameEntry.Text == null)
+					{
+						DisplayAlert("Error", "Name cannot be empty", "Ok");
+					}
+					else if (idEntry.Text == null)
+					{
+						DisplayAlert("Error", "Customer Id cannot be empty", "Ok");
+					}
+					else if (documentId.Text == null)
+					{
+						DisplayAlert("Error", "Document Id cannot be empty", "Ok");
+					}
+					else if (application.SelectedIndex == -1)
+					{
+						DisplayAlert("Error", "Select an Application to send the signature", "Ok");
+					}
+					else {
+						SenderUtil.SendSign(nameEntry.Text, idEntry.Text, documentId.Text, application.Items[application.SelectedIndex], datetimeEntry.Text);
 
+					}
+				}
+				catch (Exception ex)
+				{
+					DisplayAlert("Error", ex.Message, "Close");
 				}
 			};
 			application = new Picker

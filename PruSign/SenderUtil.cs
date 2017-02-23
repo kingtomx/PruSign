@@ -15,6 +15,12 @@ namespace PruSign
 			var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 			var directoryname = System.IO.Path.Combine(documents, "temporalSignatures");
 
+			if (!System.IO.File.Exists(System.IO.Path.Combine(directoryname, "signature.png")) ||
+				!System.IO.File.Exists(System.IO.Path.Combine(directoryname, "points.json")))
+			{
+				throw new Exception("No signatures found to be sent");
+			}
+
 			byte[] signatureFile = System.IO.File.ReadAllBytes(System.IO.Path.Combine(directoryname, "signature.png"));
 			String pointsString = System.IO.File.ReadAllText(System.IO.Path.Combine(directoryname, "points.json"));
 			var points = JsonConvert.DeserializeObject(pointsString);
