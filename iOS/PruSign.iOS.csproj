@@ -18,7 +18,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: tomas.pascual.files@gmail.com (SM7DCEUQLF)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchUseSGen>true</MtouchUseSGen>
@@ -29,6 +29,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision></CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -70,7 +71,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: tomas.pascual.files@gmail.com (SM7DCEUQLF)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
@@ -83,6 +84,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>28f66476-5635-4407-9045-a5699a9fc215</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -134,6 +136,34 @@
   <ItemGroup>
     <BundleResource Include="Resources\prudential.png" />
     <BundleResource Include="Resources\blank.png" />
+    <BundleResource Include="Resources\logo_redland.png" />
+    <BundleResource Include="Resources\Icon-App-20x20%401x.png" />
+    <BundleResource Include="Resources\Icon-App-20x20%402x.png" />
+    <BundleResource Include="Resources\Icon-App-20x20%403x.png" />
+    <BundleResource Include="Resources\Icon-App-29x29%401x.png" />
+    <BundleResource Include="Resources\Icon-App-29x29%402x.png" />
+    <BundleResource Include="Resources\Icon-App-29x29%403x.png" />
+    <BundleResource Include="Resources\Icon-App-40x40%401x.png" />
+    <BundleResource Include="Resources\Icon-App-40x40%402x.png" />
+    <BundleResource Include="Resources\Icon-App-40x40%403x.png" />
+    <BundleResource Include="Resources\Icon-App-57x57%401x.png" />
+    <BundleResource Include="Resources\Icon-App-57x57%402x.png" />
+    <BundleResource Include="Resources\Icon-App-60x60%401x.png" />
+    <BundleResource Include="Resources\Icon-App-60x60%402x.png" />
+    <BundleResource Include="Resources\Icon-App-60x60%403x.png" />
+    <BundleResource Include="Resources\Icon-App-72x72%401x.png" />
+    <BundleResource Include="Resources\Icon-App-72x72%402x.png" />
+    <BundleResource Include="Resources\Icon-App-76x76%401x.png" />
+    <BundleResource Include="Resources\Icon-App-76x76%402x.png" />
+    <BundleResource Include="Resources\Icon-App-76x76%403x.png" />
+    <BundleResource Include="Resources\Icon-App-83.5x83.5%402x.png" />
+    <BundleResource Include="Resources\Icon-Small-50x50%401x.png" />
+    <BundleResource Include="Resources\Icon-Small-50x50%402x.png" />
+    <BundleResource Include="Resources\iTunesArtwork%401x.png" />
+    <BundleResource Include="Resources\iTunesArtwork%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="Resources\iTunesArtwork%402x.png" />
   </ItemGroup>
   <Import Project="..\PruSign\PruSign.projitems" Label="Shared" Condition="Exists('..\PruSign\PruSign.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

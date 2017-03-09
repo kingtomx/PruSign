@@ -36,9 +36,11 @@ namespace PruSign
 
 
 
-		private Grid BuildGrid()
+		private ScrollView BuildGrid()
 		{
-			return new Grid
+			ScrollView scroll = new ScrollView();
+
+			Grid grilla = new Grid
 			{
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -71,7 +73,7 @@ namespace PruSign
 					{ 
 						new Image {
 							Aspect = Aspect.AspectFit,
-							Source = ImageSource.FromFile("prudential.png"),
+							Source = ImageSource.FromFile("logo_redland.png"),
 							HorizontalOptions = LayoutOptions.CenterAndExpand,
 							VerticalOptions = LayoutOptions.FillAndExpand
 						}, 0, 0
@@ -118,6 +120,9 @@ namespace PruSign
 					}
 				}
 			};
+
+			scroll.Content = grilla;
+			return scroll;
 		}
 
 
@@ -195,7 +200,7 @@ namespace PruSign
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				PlaceholderColor = Color.Gray
 			};
-
+			datetimeEntry.TextColor = Color.FromHex("801515");
 			stack.Children.Add(datetimeEntry);
 			return stack;
 		}

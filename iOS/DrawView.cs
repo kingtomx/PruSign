@@ -31,7 +31,7 @@ namespace PruSign.iOS
 		{
 			DrawPath = new CGPath();
 			CurrentLineColor = UIColor.Black;
-			PenWidth = 3.0f;
+			PenWidth = 2.0f;
 			Lines = new List<VESLine>();
 			points = new List<PointWhen>();
 			UITapGestureRecognizer doubletap = new UITapGestureRecognizer(OnDoubleTap)
