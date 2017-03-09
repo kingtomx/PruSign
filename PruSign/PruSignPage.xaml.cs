@@ -43,7 +43,7 @@ namespace PruSign
 			Grid grilla = new Grid
 			{
 				VerticalOptions = LayoutOptions.FillAndExpand,
-				HorizontalOptions = LayoutOptions.FillAndExpand,
+				HorizontalOptions = LayoutOptions.CenterAndExpand,
 				RowDefinitions = {
 					new RowDefinition {
 						Height = new GridLength(1, GridUnitType.Auto)
@@ -81,7 +81,7 @@ namespace PruSign
 					{
 						new ContentView {
 					   		Content = datetimeFrame(),
-					   		Padding = new Thickness(10, 0, 0, 0),
+					   		Padding = new Thickness(0, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 						}, 0, 1
@@ -89,7 +89,7 @@ namespace PruSign
 				  	{
 						new ContentView {
 					   		Content = BuildDrawingFrame(),
-					   		Padding = new Thickness(10, 0, 0, 0),
+					   		Padding = new Thickness(0, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 				  		}, 0, 2
@@ -97,7 +97,7 @@ namespace PruSign
 					{
 						new ContentView {
 					   		Content = ClientDataFrame(),
-					   		Padding = new Thickness(10, 0, 0, 0),
+					   		Padding = new Thickness(0, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 				  		}, 0, 3
@@ -105,7 +105,7 @@ namespace PruSign
 					{
 						new ContentView {
 					   		Content = DocumentIdFrame(),
-					   		Padding = new Thickness(10, 0, 0, 0),
+					   		Padding = new Thickness(0, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 				  		}, 0, 4
@@ -113,7 +113,7 @@ namespace PruSign
 					{
 					new ContentView {
 					   		Content = ButtonsFrame(),
-					   		Padding = new Thickness(10, 0, 0, 0),
+					   		Padding = new Thickness(0, 0, 0, 0),
 					   		HorizontalOptions = LayoutOptions.FillAndExpand,
 					   		VerticalOptions = LayoutOptions.FillAndExpand
 				  		}, 0, 5
@@ -134,8 +134,8 @@ namespace PruSign
 			{
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
-				BackgroundColor = Color.White,
-				CurrentLineColor = Color.Black,
+				BackgroundColor = Color.FromHex("#DCEAD7"),
+				CurrentLineColor = Color.FromHex("#5C8F49")
 			};
 
 			DrawingImage.SetBinding(ImageWithTouch.CurrentLineColorProperty, "CurrentLineColor");
@@ -143,9 +143,9 @@ namespace PruSign
 			 palleteFrame = new Frame
 			{
 				BackgroundColor = Color.White,
-				Padding = 5,
+				Padding = 0,
 				HasShadow = false,
-				OutlineColor = Color.Black,
+				OutlineColor = Color.FromHex("#22540F"),
 				Content = DrawingImage
 			};
 
