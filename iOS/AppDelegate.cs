@@ -17,6 +17,7 @@ namespace PruSign.iOS
 		{
 			global::Xamarin.Forms.Forms.Init();
 			LoadApplication(new App());
+			UIApplication.SharedApplication.ApplicationSupportsShakeToEdit = true;
 			return base.FinishedLaunching(app, options);
 		}
 

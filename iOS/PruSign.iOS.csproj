@@ -37,7 +37,7 @@
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: tomas.pascual.files@gmail.com (SM7DCEUQLF)</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
@@ -84,7 +84,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>28f66476-5635-4407-9045-a5699a9fc215</CodesignProvision>
+    <CodesignProvision>a6692952-879b-40ff-888c-05cbead0a706</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

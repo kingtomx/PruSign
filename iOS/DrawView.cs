@@ -187,7 +187,15 @@ namespace PruSign.iOS
 		}
 
 
+		public override void MotionEnded(UIEventSubtype motion, UIEvent evt)
+		{
+			if (motion == UIEventSubtype.MotionShake)
+			{
 
+				Clear();
+			}
+
+		}
 
 
 	}

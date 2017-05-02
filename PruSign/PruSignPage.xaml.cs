@@ -36,7 +36,7 @@ namespace PruSign
 
 
 
-		private ScrollView BuildGrid()
+		private Layout BuildGrid()
 		{
 			ScrollView scroll = new ScrollView();
 
@@ -73,7 +73,7 @@ namespace PruSign
 					{ 
 						new Image {
 							Aspect = Aspect.AspectFit,
-							Source = ImageSource.FromFile("logo_redland.png"),
+							Source = ImageSource.FromFile("prudential.png"),
 							HorizontalOptions = LayoutOptions.CenterAndExpand,
 							VerticalOptions = LayoutOptions.FillAndExpand
 						}, 0, 0
@@ -123,6 +123,8 @@ namespace PruSign
 
 			scroll.Content = grilla;
 			return scroll;
+
+			//return grilla;
 		}
 
 
@@ -169,7 +171,10 @@ namespace PruSign
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				PlaceholderColor = Color.Gray
 			};
-
+			nameEntry.Completed += (s, e) =>
+			{
+				nameEntry.Unfocus();
+			};
 			idEntry = new Entry
 			{
 				Placeholder = "Customer Id",
@@ -242,8 +247,8 @@ namespace PruSign
 				TextColor = Color.White,
 				BackgroundColor = Color.Green,
 				Font = Font.Default,
-				BorderColor = Color.Gray
-
+				BorderColor = Color.Gray,
+				VerticalOptions = LayoutOptions.FillAndExpand
 			};
 			button1.Clicked += (sender, e) =>
 			{
@@ -323,6 +328,7 @@ namespace PruSign
 		}
 
 		#endregion
+
 
 
 
