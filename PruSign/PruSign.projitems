@@ -22,5 +22,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ImageWithTouch.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SenderUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Signature.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFileHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SignatureDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SignatureItem.cs" />
   </ItemGroup>
 </Project>
