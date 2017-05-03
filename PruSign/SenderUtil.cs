@@ -62,6 +62,22 @@ namespace PruSign
 				streamWriter.Close();
 			}
 
+			PruSign.iOS.FileHelper fh = new iOS.FileHelper();
+			SignatureDatabase db = new SignatureDatabase(fh.GetLocalFilePath("PruSign.db"));
+			SignatureItem dbItem = new SignatureItem()
+			{
+				SignatureObject = json,
+				DocumentId = documentId,
+				DNI = customerId,
+				AppId = appName,
+				CreationTimeStamp = System.DateTime.Now.Ticks,
+				Sent = false,
+				SentTimeStamp = 0,
+				Miscelanea = "{}"
+
+			};
+			db.SaveItemAsync(dbItem);
+
 
 
 		}
