@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 
@@ -23,6 +21,7 @@ namespace PruSign
 
 			byte[] signatureFile = System.IO.File.ReadAllBytes(System.IO.Path.Combine(directoryname, "signature.png"));
 			String pointsString = System.IO.File.ReadAllText(System.IO.Path.Combine(directoryname, "points.json"));
+
 			var points = JsonConvert.DeserializeObject(pointsString);
 
 			byte[] nameBytes = GetBytes(name);
