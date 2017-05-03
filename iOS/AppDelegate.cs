@@ -4,6 +4,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace PruSign.iOS
 {
@@ -11,13 +12,19 @@ namespace PruSign.iOS
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
 
-		public NSUrlSessionUploadTask uploadTask;
 
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init();
+			/*
+			MessagingCenter.Subscribe<StartLongRunningTaskMessage>(this, "StartLongRunningTaskMessage", async message => {
+				iOSLongRunningTask longRunningTask = new iOSLongRunningTask();
+            	longRunningTask.Start();
+        	});
+			*/
 			LoadApplication(new App());
 			UIApplication.SharedApplication.ApplicationSupportsShakeToEdit = true;
+
 			return base.FinishedLaunching(app, options);
 		}
 
@@ -29,7 +36,27 @@ namespace PruSign.iOS
 			{
 				try
 				{
-					Post("https://reqres.in/api/users");
+					FileHelper fh = new FileHelper();
+					SignatureDatabase db = new SignatureDatabase(fh.GetLocalFilePath("PruSign.db"));
+					Task<List<SignatureItem>> items = db.GetItemsNotDoneAsync();
+
+					foreach (var item in items.Result)
+					{
+						try
+						{
+							Post("https://reqres.in/api/users");
+							item.Sent = true;
+							item.SentTimeStamp = System.DateTime.Now.Ticks;
+							db.SaveItemAsync(item);
+						}
+						catch (Exception ex)
+						{
+							// POR AHORA HAGAMOS ESTO EN CASO DE ERROR
+							item.Miscelanea = ex.Message;
+							db.SaveItemAsync(item);
+						}
+					}
+
 					UIApplication.SharedApplication.EndBackgroundTask(taskID);
 				}
 				catch (Exception ex)
@@ -37,9 +64,7 @@ namespace PruSign.iOS
 					String error = ex.Message;
 				}
 			}).Start();
-
 		}
-
 
 		public void Post(string url)
 		{
@@ -59,15 +84,15 @@ namespace PruSign.iOS
 			var dictionnary = NSDictionary.FromObjectsAndKeys(objects, keys);
 			request.Headers = dictionnary;
 			// BODY
-			NSObject postObj = FromObject("{\"name\": \"tomas\",\"job\": \"supervisor\"}");
-			NSString postString = (NSString)postObj;
+			NSString postString = (NSString)"\"{\\\"name\\\": \\\"tomas\\\",\\\"job\\\": \\\"supervisor\\\"}\"";
 			NSData postData = NSData.FromString(postString);
 			request.Body = postData;
 
-			uploadTask = session.CreateUploadTask(request);
+			NSUrlSessionUploadTask uploadTask = session.CreateUploadTask(request);
 			uploadTask.Resume();
+		}
 
-			}
+
 
 
 	}

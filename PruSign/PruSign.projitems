@@ -25,5 +25,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IFileHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SignatureDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SignatureItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LongRunningTasks.cs" />
   </ItemGroup>
 </Project>
