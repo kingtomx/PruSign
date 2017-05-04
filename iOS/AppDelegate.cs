@@ -66,7 +66,7 @@ namespace PruSign.iOS
 			}).Start();
 		}
 
-		public void Post(string url)
+		public void Post(string url, string jsonMessage)
 		{
 			NSUrlSession session = null;
 
@@ -78,18 +78,19 @@ namespace PruSign.iOS
 			// METHOD
 			request.HttpMethod = "POST";
 			// HEADERS
-			request.HttpMethod = "POST";
-			var keys = new object[] { "Key1", "Key2" };
-			var objects = new object[] { "Value1", "Value2" };
+			var keys = new object[] { "Content-Type" };
+			var objects = new object[] { "application/json" };
 			var dictionnary = NSDictionary.FromObjectsAndKeys(objects, keys);
 			request.Headers = dictionnary;
 			// BODY
-			NSString postString = (NSString)"\"{\\\"name\\\": \\\"tomas\\\",\\\"job\\\": \\\"supervisor\\\"}\"";
+			NSString postString = (NSString)jsonMessage;
 			NSData postData = NSData.FromString(postString);
 			request.Body = postData;
 
 			NSUrlSessionUploadTask uploadTask = session.CreateUploadTask(request);
 			uploadTask.Resume();
+			NSUrlResponse res = uploadTask.Response;
+
 		}
 
 
