@@ -55,14 +55,19 @@ namespace PruSign
 				hash = hash
 			};
 			var json = JsonConvert.SerializeObject(sign);
-			var filename = System.IO.Path.Combine(outboxFolder, System.DateTime.Now.Ticks+".json");
+			var filename = System.IO.Path.Combine(outboxFolder, System.DateTime.Now.Ticks + ".json");
 			using (var streamWriter = new System.IO.StreamWriter(filename))
 			{
 				streamWriter.Write(json);
 				streamWriter.Close();
 			}
 
+#if __IOS__
 			PruSign.iOS.FileHelper fh = new iOS.FileHelper();
+#endif
+#if __ANDROID__
+			PruSign.Droid.FileHelper fh = new Droid.FileHelper();
+#endif
 			SignatureDatabase db = new SignatureDatabase(fh.GetLocalFilePath("PruSign.db"));
 			SignatureItem dbItem = new SignatureItem()
 			{

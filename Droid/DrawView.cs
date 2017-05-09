@@ -23,10 +23,11 @@ namespace PruSign.Android
 		private Canvas DrawCanvas;
 		private Bitmap CanvasBitmap;
 
+
 		private void Start()
 		{
 			CurrentLineColor = Color.Black;
-			PenWidth = 5.0f;
+			PenWidth = 3.0f;
 
 			DrawPath = new Path();
 			DrawPaint = new Paint
@@ -53,6 +54,13 @@ namespace PruSign.Android
 			CanvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888);
 			DrawCanvas = new Canvas(CanvasBitmap);
 		}
+
+		/*
+		private void OnDoubleTap(UIGestureRecognizer gesture)
+		{
+			Lines.Clear();
+		}
+		*/
 
 		protected override void OnDraw(Canvas canvas)
 		{
