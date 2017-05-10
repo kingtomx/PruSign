@@ -4,19 +4,15 @@ using Android.Content;
 
 namespace PruSign.Android
 {
-	// Original Source: http://csharp-tricks-en.blogspot.com/2014/05/android-draw-on-screen-by-finger.html
 	public class DrawView : View
 	{
-		public DrawView(Context context)
-			: base(context)
+		public DrawView(Context context) : base(context)
 		{
 			Start();
 		}
 
 		public Color CurrentLineColor { get; set; }
-
 		public float PenWidth { get; set; }
-
 		private Path DrawPath;
 		private Paint DrawPaint;
 		private Paint CanvasPaint;
@@ -45,7 +41,9 @@ namespace PruSign.Android
 			{
 				Dither = true
 			};
+
 		}
+
 
 		protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
 		{
@@ -55,12 +53,6 @@ namespace PruSign.Android
 			DrawCanvas = new Canvas(CanvasBitmap);
 		}
 
-		/*
-		private void OnDoubleTap(UIGestureRecognizer gesture)
-		{
-			Lines.Clear();
-		}
-		*/
 
 		protected override void OnDraw(Canvas canvas)
 		{
@@ -75,6 +67,14 @@ namespace PruSign.Android
 		{
 			var touchX = e.GetX();
 			var touchY = e.GetY();
+
+			var newPoint = new PointF(touchX, touchY);
+			Droid.PointWhen customPoint = new Droid.PointWhen
+			{
+				point = newPoint,
+				when = System.DateTime.Now.Ticks
+			};
+			points.Add(customPoint);
 
 			switch (e.Action)
 			{

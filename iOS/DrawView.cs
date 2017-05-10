@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 
 namespace PruSign.iOS
 {
-	// Original Source: http://stackoverflow.com/questions/21029440/xamarin-ios-drawing-onto-image-after-scaling-it
 	public class DrawView : UIView
 	{
 
