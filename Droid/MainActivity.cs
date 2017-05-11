@@ -24,5 +24,7 @@ namespace PruSign.Droid
 
 			LoadApplication(new App());
 		}
+
+
 	}
 }

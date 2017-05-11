@@ -30,43 +30,50 @@ namespace PruSign.iOS
 
 		public override void DidEnterBackground(UIApplication app)
 		{
-			nint taskID = UIApplication.SharedApplication.BeginBackgroundTask(() => { 
-			});
-			new Task(() =>
-			{
-				try
-				{
-					FileHelper fh = new FileHelper();
-					SignatureDatabase db = new SignatureDatabase(fh.GetLocalFilePath("PruSign.db"));
-					Task<List<SignatureItem>> items = db.GetItemsNotDoneAsync();
-
-					foreach (var item in items.Result)
-					{
-						try
-						{
-							Post("https://48.177.151.81:29398/api/SignatureApi", item.SignatureObject);
-							item.Sent = true;
-							item.SentTimeStamp = System.DateTime.Now.Ticks;
-							db.SaveItemAsync(item);
-						}
-						catch (Exception ex)
-						{
-							// POR AHORA HAGAMOS ESTO EN CASO DE ERROR
-							item.Miscelanea = ex.Message;
-							db.SaveItemAsync(item);
-						}
-					}
-
-					UIApplication.SharedApplication.EndBackgroundTask(taskID);
-				}
-				catch (Exception ex)
-				{
-					String error = ex.Message;
-				}
-			}).Start();
+			sendRestSignature();
 		}
 
-		public void Post(string url, string jsonMessage)
+
+		private void sendRestSignature()
+		{
+			nint taskID = UIApplication.SharedApplication.BeginBackgroundTask(() =>
+			{
+			});
+			new Task(() =>
+						{
+							try
+							{
+								FileHelper fh = new FileHelper();
+								SignatureDatabase db = new SignatureDatabase(fh.GetLocalFilePath("PruSign.db"));
+								Task<List<SignatureItem>> items = db.GetItemsNotDoneAsync();
+
+								foreach (var item in items.Result)
+								{
+									try
+									{
+										Post("https://48.177.151.81:29398/api/SignatureApi", item.SignatureObject);
+										item.Sent = true;
+										item.SentTimeStamp = System.DateTime.Now.Ticks;
+										db.SaveItemAsync(item);
+									}
+									catch (Exception ex)
+									{
+										// POR AHORA HAGAMOS ESTO EN CASO DE ERROR
+										item.Miscelanea = ex.Message;
+										db.SaveItemAsync(item);
+									}
+								}
+
+								UIApplication.SharedApplication.EndBackgroundTask(taskID);
+							}
+							catch (Exception ex)
+							{
+								String error = ex.Message;
+							}
+						}).Start();			
+		}
+
+		private void Post(string url, string jsonMessage)
 		{
 			NSUrlSession session = null;
 

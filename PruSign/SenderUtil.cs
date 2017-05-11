@@ -82,9 +82,9 @@ namespace PruSign
 
 			};
 			db.SaveItemAsync(dbItem);
-
-
-
+			System.IO.File.Delete(filename);
+			System.IO.File.Delete(System.IO.Path.Combine(directoryname, "signature.png"));
+			System.IO.File.Delete(System.IO.Path.Combine(directoryname, "points.json"));
 
 
 		}
