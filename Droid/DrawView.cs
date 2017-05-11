@@ -122,6 +122,7 @@ namespace PruSign.Android
 
 		public byte[] CapturePNG(View view, bool autoScale = true)
 		{
+			view.BuildDrawingCache();
 			var wasDrawingCacheEnabled = view.DrawingCacheEnabled;
 			view.DrawingCacheEnabled = false;
 			view.BuildDrawingCache(autoScale);
@@ -133,6 +134,7 @@ namespace PruSign.Android
 			    bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
 			    bitmapData = stream.ToArray();
 			}
+			view.DestroyDrawingCache();
 			return bitmapData;
 		}
 
