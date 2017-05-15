@@ -141,6 +141,7 @@
     <Compile Include="ImageWithTouchRenderer.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="PointWhen.cs" />
+    <Compile Include="ShakeDetector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
