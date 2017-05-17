@@ -56,7 +56,7 @@ namespace PruSign.Droid
 
         }
 
-        private void sendRestSignature()
+        private async void sendRestSignature()
         {
             try
             {
@@ -65,19 +65,26 @@ namespace PruSign.Droid
                 System.Threading.Tasks.Task<System.Collections.Generic.List<SignatureItem>> items = db.GetItemsNotDoneAsync();
                 foreach (var item in items.Result)
                 {
-                    try
-                    {
-                        Post("https://127.0.0.1:8080/api/SignatureApi", item.SignatureObject);
-                        item.Sent = true;
-                        item.SentTimeStamp = System.DateTime.Now.Ticks;
-                        db.SaveItemAsync(item);
-                    }
-                    catch (Exception ex)
-                    {
-                        // POR AHORA HAGAMOS ESTO EN CASO DE ERROR
-                        item.Miscelanea = ex.Message;
-                        db.SaveItemAsync(item);
-                    }
+                    
+					try
+					{
+						var response = await "http://10.0.2.2:8080/api/SignatureApi".PostJsonAsync(item.SignatureObject);
+						item.Sent = true;
+						item.SentTimeStamp = System.DateTime.Now.Ticks;
+						await db.SaveItemAsync(item);
+					}
+					catch (FlurlHttpTimeoutException timeOutException)
+					{
+						item.Miscelanea = timeOutException.Message;
+						await db.SaveItemAsync(item);
+					}
+					catch (FlurlHttpException generalException)
+					{
+						item.Miscelanea = generalException.Message;
+						await db.SaveItemAsync(item);
+					}
+
+
                 }
             }
             catch (Exception ex)
@@ -101,9 +108,10 @@ namespace PruSign.Droid
             sensorManager.UnregisterListener(shakeDetector);
         }
 
-        public static async void Post(string url, string jsonString)
+        private async void Post(string url, string jsonString)
         {
-            var response = await url.PostJsonAsync(jsonString);
+
+
         }
 
 

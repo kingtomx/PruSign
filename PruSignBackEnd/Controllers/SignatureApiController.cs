@@ -20,6 +20,11 @@ namespace PruSignBackEnd
 			try
 			{
 
+                var httpContext = (System.Web.HttpContextWrapper)Request.Properties["MS_HttpContext"];
+                var foo = httpContext.Request.Form["jsonRequest"];
+
+
+
 				string appId = signature.applicationId;
 
 				return new HttpResponseMessage(HttpStatusCode.OK);
@@ -27,7 +32,7 @@ namespace PruSignBackEnd
 			}
 			catch (Exception ex)
 			{
-				return new HttpResponseMessage(HttpStatusCode.OK);
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
 			}
 
 
