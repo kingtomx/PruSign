@@ -20,11 +20,6 @@ namespace PruSignBackEnd
 			try
 			{
 
-                var httpContext = (System.Web.HttpContextWrapper)Request.Properties["MS_HttpContext"];
-                var foo = httpContext.Request.Form["jsonRequest"];
-
-
-
 				string appId = signature.applicationId;
 
 				return new HttpResponseMessage(HttpStatusCode.OK);

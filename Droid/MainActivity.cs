@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -68,7 +67,10 @@ namespace PruSign.Droid
                     
 					try
 					{
-						var response = await "http://10.0.2.2:8080/api/SignatureApi".PostJsonAsync(item.SignatureObject);
+
+                        Signature requestItem = Signature.LoadFromJson(item.SignatureObject);
+
+						var response = await "http://10.0.2.2:8080/api/SignatureApi".PostJsonAsync(requestItem);
 						item.Sent = true;
 						item.SentTimeStamp = System.DateTime.Now.Ticks;
 						await db.SaveItemAsync(item);

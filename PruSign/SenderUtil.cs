@@ -72,6 +72,7 @@ namespace PruSign
 			SignatureItem dbItem = new SignatureItem()
 			{
 				SignatureObject = json,
+                CustomerName = name,
 				DocumentId = documentId,
 				DNI = customerId,
 				AppId = appName,
