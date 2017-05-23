@@ -110,12 +110,6 @@ namespace PruSign.Droid
             sensorManager.UnregisterListener(shakeDetector);
         }
 
-        private async void Post(string url, string jsonString)
-        {
-
-
-        }
-
 
     }
 }
