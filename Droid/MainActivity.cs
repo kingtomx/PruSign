@@ -35,7 +35,9 @@ namespace PruSign.Droid
 		        {
 		            lock (_syncLock)
 		            {
-		                // Accion a realizar en el caso de que se detecte que el dispositivo ha sido agitado
+						// Accion a realizar en el caso de que se detecte que el dispositivo ha sido agitado
+						
+						
 		            }
 		        };
     
