@@ -15,6 +15,9 @@ namespace PruSign.Android
 		{
 			base.OnElementChanged(e);
 
+			int androidId = this.Id;
+			Guid xamarinId = e.NewElement.Id;
+
 			if (e.OldElement == null)
 			{
 				SetNativeControl(new DrawView(Context));
@@ -35,5 +38,7 @@ namespace PruSign.Android
 		{
 			Control.CurrentLineColor = Element.CurrentLineColor.ToAndroid();
 		}
+
+
 	}
 }
