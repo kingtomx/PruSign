@@ -8,8 +8,25 @@ namespace PruSign.Android
 {
 	public class DrawView : View
 	{
+
+		private static bool doubleTapped;
+		private static long lastTouched = -1;
+		private static long oneSecond = 10000000;
+		private static long halfSecond = 5000000;
+
 		public DrawView(Context context) : base(context)
 		{
+
+			//GestureDetector gestureDetector = new GestureDetector(context, new GestureListener());
+			//gestureDetector.DoubleTap += (object sender, GestureDetector.DoubleTapEventArgs e) => {
+			//	string aux = "";
+			//};
+			//apply touch to your view
+			//this.Touch += (object sender, View.TouchEventArgs e) => {
+			//       gestureDetector.OnTouchEvent (e.Event);
+			//};
+
+
 			Start();
 		}
 
@@ -17,6 +34,7 @@ namespace PruSign.Android
 		public float PenWidth { get; set; }
 		private Path DrawPath;
 		private Paint DrawPaint;
+		private Paint DrawPaintReset;
 		private Paint CanvasPaint;
 		private Canvas DrawCanvas;
 		private Bitmap CanvasBitmap;
@@ -26,6 +44,7 @@ namespace PruSign.Android
 
 		private void Start()
 		{
+
 			CurrentLineColor = Color.Black;
 			PenWidth = 3.0f;
 			points = new List<Droid.PointWhen>();
@@ -37,6 +56,13 @@ namespace PruSign.Android
 				AntiAlias = true,
 				StrokeWidth = PenWidth
 			};
+			DrawPaintReset = new Paint
+			{
+				Color = Color.White,
+				AntiAlias = true,
+				StrokeWidth = PenWidth
+			};
+
 
 			DrawPaint.SetStyle(Paint.Style.Stroke);
 			DrawPaint.StrokeJoin = Paint.Join.Round;
@@ -70,6 +96,10 @@ namespace PruSign.Android
 
 		public override bool OnTouchEvent(MotionEvent e)
 		{
+
+
+
+
 			var touchX = e.GetX();
 			var touchY = e.GetY();
 
@@ -84,6 +114,17 @@ namespace PruSign.Android
 			switch (e.Action)
 			{
 				case MotionEventActions.Down:
+					// doubletap counter
+					long nowTouched = System.DateTime.Now.Ticks;
+					if (lastTouched != -1 && (nowTouched - lastTouched<halfSecond))
+					{
+						DrawCanvas.DrawPaint(DrawPaintReset);
+						lastTouched = nowTouched;
+					}
+					else
+					{
+						lastTouched = nowTouched;
+					}
 					DrawPath.MoveTo(touchX, touchY);
 					break;
 				case MotionEventActions.Move:
@@ -139,4 +180,10 @@ namespace PruSign.Android
 		}
 
 	}
+
+
+
+
+
+
 }

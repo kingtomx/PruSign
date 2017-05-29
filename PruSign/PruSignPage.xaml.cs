@@ -136,8 +136,9 @@ namespace PruSign
 			{
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
-				BackgroundColor = Color.FromHex("#DCEAD7"),
-				CurrentLineColor = Color.FromHex("#5C8F49")
+				BackgroundColor = Color.FromHex("#FFFFFF"),
+				CurrentLineColor = Color.FromHex("#5C8F49"),
+				StyleId = "drawingframe"
 			};
 
 			DrawingImage.SetBinding(ImageWithTouch.CurrentLineColorProperty, "CurrentLineColor");
