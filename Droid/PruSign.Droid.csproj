@@ -143,12 +143,15 @@
     <Compile Include="PointWhen.cs" />
     <Compile Include="ShakeDetector.cs" />
     <Compile Include="GestureListener.cs" />
+    <Compile Include="OnTouchListener.cs" />
+    <Compile Include="VESLine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
+    <None Include="PruSign.Droid.csproj" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.axml" />
