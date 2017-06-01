@@ -143,6 +143,8 @@
     <Compile Include="PointWhen.cs" />
     <Compile Include="ShakeDetector.cs" />
     <Compile Include="GestureListener.cs" />
+    <Compile Include="OnTouchListener.cs" />
+    <Compile Include="VESLine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
