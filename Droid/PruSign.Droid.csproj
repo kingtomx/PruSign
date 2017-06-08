@@ -166,11 +166,8 @@
     <Compile Include="FileHelper.cs" />
     <Compile Include="PointWhen.cs" />
     <Compile Include="ShakeDetector.cs" />
-<<<<<<< HEAD
     <Compile Include="Signature.cs" />
-=======
     <Compile Include="GestureListener.cs" />
->>>>>>> f2ef8490fcada3d9045e6a79ca53cf09ead1849d
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
