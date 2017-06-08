@@ -6,7 +6,7 @@ namespace PruSign.Droid
 {
 	public class ShakeDetector : Java.Lang.Object, ISensorEventListener
 	{
-		private const float SHAKE_THRESHOLD_GRAVITY = 2.7F;
+		private const float SHAKE_THRESHOLD_GRAVITY = 1.5F;
 		private const int SHAKE_SLOP_TIME_MS = 500;
 		private const int SHAKE_COUNT_RESET_TIME_MS = 3000;
 

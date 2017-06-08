@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace PruSign.Droid
 {
+<<<<<<< HEAD
     [Activity(Label = "PruSign.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
@@ -65,6 +66,62 @@ namespace PruSign.Droid
                 foreach (var item in items.Result)
                 {
                     
+=======
+	[Activity(Label = "PruSign.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+	{
+		private static readonly object _syncLock = new object();
+		private SensorManager sensorManager;
+		private Sensor sensor;
+		private ShakeDetector shakeDetector;
+
+		protected override void OnCreate(Bundle bundle)
+		{
+			TabLayoutResource = Resource.Layout.Tabbar;
+			ToolbarResource = Resource.Layout.Toolbar;
+
+			base.OnCreate(bundle);
+
+        	sensorManager = (SensorManager)GetSystemService(Context.SensorService);
+			sensor = sensorManager.GetDefaultSensor(SensorType.Accelerometer);
+		 
+		    shakeDetector = new ShakeDetector();
+			shakeDetector.Shaked += (sender, shakeCount) =>
+		        {
+		            lock (_syncLock)
+		            {
+						// Accion a realizar en el caso de que se detecte que el dispositivo ha sido agitado
+						
+						
+		            }
+		        };
+    
+
+			global::Xamarin.Forms.Forms.Init(this, bundle);
+
+			LoadApplication(new App());
+		}
+
+
+
+		protected override void OnStop()
+		{
+			base.OnStop();
+
+			ThreadPool.QueueUserWorkItem (o => sendRestSignature ());
+
+		}
+
+		private void sendRestSignature()
+		{
+			try
+			{
+				FileHelper fh = new FileHelper();
+				SignatureDatabase db = new SignatureDatabase(fh.GetLocalFilePath("PruSign.db"));
+				System.Threading.Tasks.Task<System.Collections.Generic.List<SignatureItem>> items = db.GetItemsNotDoneAsync();
+				foreach (var item in items.Result)
+				{
+>>>>>>> f2ef8490fcada3d9045e6a79ca53cf09ead1849d
 					try
 					{
 
