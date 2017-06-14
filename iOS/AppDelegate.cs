@@ -51,7 +51,7 @@ namespace PruSign.iOS
 								{
 									try
 									{
-										Post("https://48.177.151.81:29398/api/SignatureApi", item.SignatureObject);
+										Post("http://127.0.0.1:8080/api/SignatureApi", item.SignatureObject);
 										item.Sent = true;
 										item.SentTimeStamp = System.DateTime.Now.Ticks;
 										db.SaveItemAsync(item);

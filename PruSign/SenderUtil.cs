@@ -72,6 +72,7 @@ namespace PruSign
 			SignatureItem dbItem = new SignatureItem()
 			{
 				SignatureObject = json,
+                CustomerName = name,
 				DocumentId = documentId,
 				DNI = customerId,
 				AppId = appName,
@@ -83,8 +84,8 @@ namespace PruSign
 			};
 			db.SaveItemAsync(dbItem);
 			System.IO.File.Delete(filename);
-			System.IO.File.Delete(System.IO.Path.Combine(directoryname, "signature.png"));
-			System.IO.File.Delete(System.IO.Path.Combine(directoryname, "points.json"));
+			//System.IO.File.Delete(System.IO.Path.Combine(directoryname, "signature.png"));
+			//System.IO.File.Delete(System.IO.Path.Combine(directoryname, "points.json"));
 
 
 		}

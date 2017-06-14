@@ -10,6 +10,8 @@ namespace PruSign
 
 		public string SignatureObject { get; set; }
 
+        public string CustomerName { get; set; }
+
 		public string DocumentId { get; set; }
 
 		public string DNI { get; set; }
