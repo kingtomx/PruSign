@@ -54,6 +54,7 @@ namespace PruSign.iOS
 										PruSign.HttpUtils.Post("https://api.prudentialseguros.com.ar:4043", "/Prusign/Api/SignatureApi", item.SignatureObject);
 										item.Sent = true;
 										item.SentTimeStamp = System.DateTime.Now.Ticks;
+										item.SignatureObject = "";
 										db.SaveItemAsync(item);
 									}
 									catch (Exception ex)
