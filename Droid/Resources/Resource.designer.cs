@@ -26,9 +26,9 @@ namespace PruSign.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::PruSign.Droid.Resource.Attribute.actionBarSize;
 			global::PCLStorage.Resource.String.ApplicationName = global::PruSign.Droid.Resource.String.ApplicationName;
 			global::PCLStorage.Resource.String.Hello = global::PruSign.Droid.Resource.String.Hello;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::PruSign.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

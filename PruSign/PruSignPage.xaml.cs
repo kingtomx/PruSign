@@ -202,7 +202,7 @@ namespace PruSign
 			datetimeEntry = new Entry
 			{
 				IsEnabled = false,
-				Text = System.DateTime.Now.ToString(),
+				Text = System.DateTime.Now.ToString("dd-MM-yyy hh:mm:ss tt"),
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				PlaceholderColor = Color.Gray
 			};

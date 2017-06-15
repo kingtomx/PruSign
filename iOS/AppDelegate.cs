@@ -51,7 +51,7 @@ namespace PruSign.iOS
 								{
 									try
 									{
-										Post("http://127.0.0.1:8080/api/SignatureApi", item.SignatureObject);
+										PruSign.HttpUtils.Post("https://api.prudentialseguros.com.ar:4043", "/Prusign/Api/SignatureApi", item.SignatureObject);
 										item.Sent = true;
 										item.SentTimeStamp = System.DateTime.Now.Ticks;
 										db.SaveItemAsync(item);
@@ -73,7 +73,7 @@ namespace PruSign.iOS
 						}).Start();			
 		}
 
-		private void Post(string url, string jsonMessage)
+		private NSHttpUrlResponse Post(string url, string jsonMessage)
 		{
 			NSUrlSession session = null;
 
@@ -96,7 +96,7 @@ namespace PruSign.iOS
 
 			NSUrlSessionUploadTask uploadTask = session.CreateUploadTask(request);
 			uploadTask.Resume();
-			NSUrlResponse res = uploadTask.Response;
+			return (Foundation.NSHttpUrlResponse)uploadTask.Response;
 
 		}
 
